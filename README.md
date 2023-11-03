@@ -1,2 +1,2 @@
-# pong
-10 game challenge #1
+# breakout
+10 game challenge #2
