@@ -1,0 +1,279 @@
+[gd_scene load_steps=14 format=3 uid="uid://o0iyqxvhgbqm"]
+
+[ext_resource type="Script" path="res://scripts/Stage.cs" id="1_vchfs"]
+[ext_resource type="Script" path="res://scripts/Paddle.cs" id="2_7068a"]
+[ext_resource type="Script" path="res://scripts/Ball.cs" id="3_cl6bu"]
+[ext_resource type="Texture2D" uid="uid://de3k3xyunr1ts" path="res://icon.svg" id="4_74pf6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8ojc"]
+size = Vector2(135, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uv7lk"]
+size = Vector2(126, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2s48y"]
+size = Vector2(640, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57lkw"]
+size = Vector2(740, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6is7"]
+size = Vector2(70, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rk81b"]
+size = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h616g"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb176"]
+bg_color = Color(0.156863, 0.156863, 0.156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j6u0"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("_paddle", "_ball", "_targets", "_menu", "_labelLevel", "_labelScore", "_labelHighscore", "_lifeArray")]
+script = ExtResource("1_vchfs")
+_paddle = NodePath("GameArea/Paddle")
+_ball = NodePath("GameArea/Ball")
+_targets = NodePath("GameArea/Targets")
+_menu = NodePath("Menu")
+_labelLevel = NodePath("UI/VBoxContainer/LabelLevelValue")
+_labelScore = NodePath("UI/VBoxContainer/LabelScoreValue")
+_labelHighscore = NodePath("UI/VBoxContainer/LabelHighscoreValue")
+_lifeArray = [NodePath("UI/Lifes/Icon"), NodePath("UI/Lifes/Icon2"), NodePath("UI/Lifes/Icon3")]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="GameArea" type="ColorRect" parent="."]
+offset_left = 610.0
+offset_right = 1310.0
+offset_bottom = 1080.0
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="WallLeft" type="Area2D" parent="GameArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/WallLeft"]
+position = Vector2(-37.5, 540)
+shape = SubResource("RectangleShape2D_i8ojc")
+
+[node name="ColorRect" type="ColorRect" parent="GameArea/WallLeft"]
+offset_right = 30.0
+offset_bottom = 1080.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="WallRight" type="Area2D" parent="GameArea"]
+position = Vector2(670, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/WallRight"]
+position = Vector2(64, 540)
+shape = SubResource("RectangleShape2D_uv7lk")
+
+[node name="ColorRect" type="ColorRect" parent="GameArea/WallRight"]
+offset_right = 30.0
+offset_bottom = 1080.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="WallTop" type="Area2D" parent="GameArea"]
+position = Vector2(30, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/WallTop"]
+position = Vector2(320, -33)
+shape = SubResource("RectangleShape2D_2s48y")
+
+[node name="ColorRect" type="ColorRect" parent="GameArea/WallTop"]
+offset_right = 640.0
+offset_bottom = 30.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Bottom" type="Area2D" parent="GameArea"]
+position = Vector2(0, 1100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/Bottom"]
+position = Vector2(350, 63)
+shape = SubResource("RectangleShape2D_57lkw")
+
+[node name="Paddle" type="Area2D" parent="GameArea" node_paths=PackedStringArray("_ball")]
+position = Vector2(350, 1000)
+script = ExtResource("2_7068a")
+_ball = NodePath("../Ball")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/Paddle"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_h6is7")
+
+[node name="ColorRect" type="ColorRect" parent="GameArea/Paddle"]
+offset_left = -35.0
+offset_top = -7.5
+offset_right = 35.0
+offset_bottom = 7.5
+
+[node name="Ball" type="Area2D" parent="GameArea" node_paths=PackedStringArray("_paddle", "_stage")]
+position = Vector2(350, 985)
+script = ExtResource("3_cl6bu")
+_paddle = NodePath("../Paddle")
+_stage = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/Ball"]
+shape = SubResource("RectangleShape2D_rk81b")
+
+[node name="ColorRect" type="ColorRect" parent="GameArea/Ball"]
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+
+[node name="Targets" type="Node2D" parent="GameArea"]
+
+[node name="Menu" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.705882)
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="ButtonReset" type="Button" parent="Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_h616g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eb176")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5j6u0")
+text = "Reset Game"
+
+[node name="ButtonBack" type="Button" parent="Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_h616g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eb176")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5j6u0")
+text = "Main Menu"
+
+[node name="ButtonQuit" type="Button" parent="Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_h616g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eb176")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5j6u0")
+text = "Quit Game"
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+offset_right = 581.0
+offset_bottom = 161.0
+theme_override_constants/separation = -5
+
+[node name="LabelLevel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 40
+text = "Level"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="LabelLevelValue" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "99"
+horizontal_alignment = 2
+
+[node name="LabelScore" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 40
+text = "Score"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="LabelScoreValue" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "9999"
+horizontal_alignment = 2
+
+[node name="LabelHighscore" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 40
+text = "Highscore"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="LabelHighscoreValue" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "9999"
+horizontal_alignment = 2
+
+[node name="Lifes" type="Node2D" parent="UI"]
+
+[node name="LabelLifes" type="Label" parent="UI/Lifes"]
+offset_left = 1340.0
+offset_right = 1531.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 40
+text = "Lifes"
+vertical_alignment = 2
+
+[node name="Icon" type="Sprite2D" parent="UI/Lifes"]
+position = Vector2(1390, 110)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_74pf6")
+
+[node name="Icon2" type="Sprite2D" parent="UI/Lifes"]
+position = Vector2(1390, 220)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_74pf6")
+
+[node name="Icon3" type="Sprite2D" parent="UI/Lifes"]
+position = Vector2(1390, 330)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_74pf6")
+
+[connection signal="area_entered" from="GameArea/Ball" to="GameArea/Ball" method="_on_area_entered"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/ButtonReset" to="." method="_on_button_reset_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]
